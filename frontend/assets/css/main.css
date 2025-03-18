@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@font-face {
+    font-family: 'vazir';
+    src: url('/assets/fonts/Vazirmatn-Medium.ttf') format('truetype'),
+    url('../fonts/Vazirmatn-Medium.woff2') format('truetype');
+}
+
+body {
+    font-family: 'vazir', sans-serif;
+    /*direction: rtl;*/
+}
+button {
+    all: unset;  /* Resets almost everything */
+    background: none;  /* Removes default background */
+    border: none;      /* Removes any border */
+    padding: 0;        /* Removes padding */
+    margin: 0;         /* Removes margin */
+    box-shadow: none;  /* Removes any shadow */
+    outline: none;     /* Removes default outline on focus */
+    font: inherit;     /* Ensures font family and size are inherited */
+    color: inherit;    /* Inherit text color */
+    cursor: pointer;   /* Restores pointer on hover */
+}
+:is([dir=rtl]) select:not([size]) {
+    background-position: left 0.75rem center;
+    padding-right: 1.75rem;
+    padding-left: 1.75rem;
+}
