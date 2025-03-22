@@ -110,7 +110,7 @@ export function useHelpers() {
         }) : items;
     }
 
-    function getUrl(url: string, api: boolean = true, hash_data: string | null = null): string {
+    function getUrl(url: string, api: boolean = false, hash_data: string | null = null): string {
         const baseUrl = backEndUrl;
         let normalizedUrl = url.replace(/\/+/g, '/');
         normalizedUrl = normalizedUrl.startsWith('/') ? normalizedUrl.slice(1) : normalizedUrl;

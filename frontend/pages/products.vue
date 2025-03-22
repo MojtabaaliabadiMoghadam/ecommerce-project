@@ -22,7 +22,6 @@ import {useDataGlobal} from "~/stores/globalStore";
 
 const dataGlobal = useDataGlobal()
 onBeforeMount(()=>{
-  // dataGlobal.generateProducts(10)
   console.log(dataGlobal.products)
 })
 onUnmounted(()=>{

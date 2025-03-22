@@ -12,30 +12,12 @@ export const useDataGlobal = defineStore("data", () => {
     const quantity = ref<number>(0);
     const lock = ref(true);
 
-    // مقدار فیلترها
     const priceFilter = ref({ min: 0, max: 1000 });
     const categoryFilter = ref<string | null>(null);
     const orderby = ref<string>("date");
     const orders = ref([])
     const order = ref()
     const orderProduct = ref([])
-    function generateProducts(count: number) {
-        // if (!lock.value) return null;
-        // products.value = Array.from({ length: count }, () => ({
-        //     name: faker.commerce.productName(),
-        //     databaseId: faker.number.int({ min: 1000, max: 9999 }),
-        //     price: parseFloat(faker.commerce.price({ min: 0, max: 1000 })),
-        //     slug: faker.lorem.slug(),
-        //     rating: faker.number.float({ min: 1, max: 5, precision: 0.1 }),
-        //     discount: faker.number.int({ min: 0, max: 50 }),
-        //     category: faker.helpers.arrayElement(["لباس", "کفش", "لوازم الکترونیک", "کتاب"]),
-        //     stockQuantity: faker.number.int({ min: 0, max: 100 }),
-        //     stockStatus: faker.helpers.arrayElement(["IN_STOCK", "OUT_OF_STOCK"]),
-        //     src: faker.image.url(),
-        //     date: faker.date.past(),
-        // }));
-        // lock.value = false;
-    }
 
     // list of category should be delete after add api
     const categories = ref([
@@ -130,14 +112,10 @@ export const useDataGlobal = defineStore("data", () => {
 
     async function GetProducts(){
         try {
-            let url = getUrl('/web/product/voucher')
+            let url = getUrl('/products')
             const {status, data, message} = await fetchData({
                 method: 'GET',
-                url,
-                parameters:{
-                    with:['translations','category.translations','prices']
-                },
-                authorization:true
+                url
             })
 
             if (status == 200) {
@@ -224,7 +202,6 @@ export const useDataGlobal = defineStore("data", () => {
         quantity,
         products,
         GetProducts,
-        generateProducts,
         priceFilter,
         categoryFilter,
         orderby,
