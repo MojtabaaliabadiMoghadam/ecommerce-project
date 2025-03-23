@@ -1,24 +1,27 @@
 <template>
-  <NuxtLoadingIndicator />
-  <div class="flex flex-col min-h-screen">
-    <AppHeader />
+  <div>
+    <NuxtLoadingIndicator />
+    <div class="flex flex-col min-h-screen">
+      <AppHeader />
 
-<!--    <Transition name="slide-from-left">-->
-<!--      <LazyShopElementsCart v-if="dataGlobal.isShowingCart" />-->
-<!--    </Transition>-->
+      <!--    <Transition name="slide-from-left">-->
+      <!--      <LazyShopElementsCart v-if="dataGlobal.isShowingCart" />-->
+      <!--    </Transition>-->
 
-    <Transition name="slide-from-right">
-      <LazyGeneralElementsMobileMenu v-if="isShowingMobileMenu" />
-    </Transition>
+      <Transition name="slide-from-right">
+        <LazyGeneralElementsMobileMenu v-if="isShowingMobileMenu" />
+      </Transition>
 
-    <NuxtPage />
+      <NuxtPage />
 
-    <Transition name="fade">
-      <div v-if="isShowingMobileMenu" class="bg-black opacity-25 inset-0 z-40 fixed" @click="closeCartAndMenu" />
-    </Transition>
+      <Transition name="fade">
+        <div v-if="isShowingMobileMenu" class="bg-black opacity-25 inset-0 z-40 fixed" @click="closeCartAndMenu" />
+      </Transition>
 
-    <AppFooter />
+      <AppFooter />
+    </div>
   </div>
+
 </template>
 <script setup lang="ts">
 import AppHeader from "~/components/generalElements/AppHeader.vue";
@@ -30,7 +33,7 @@ const { isShowingMobileMenu, toggleMobileMenu, addBodyClass, removeBodyClass } =
 const { locale, t } = useI18n();
 const { siteName } = useAppConfig();
 import { useI18n } from 'vue-i18n';
-import {useDataGlobal} from "~/stores/globalStore";
+import { useDataGlobal } from "~/stores/globalStore";
 const dataGlobal = useDataGlobal()
 
 const closeCartAndMenu = () => {
@@ -43,8 +46,8 @@ watch([isShowingMobileMenu], () => {
 });
 
 watch(
-    () => route.path,
-    () => closeCartAndMenu(),
+  () => route.path,
+  () => closeCartAndMenu(),
 );
 
 useHead({
@@ -72,8 +75,7 @@ pre {
 
 select {
   @apply bg-white border rounded-md font-medium border-gray-300 flex-1 text-sm p-1.5 pr-12 pl-4 text-gray-500 relative inline-flex items-center hover:bg-gray-50 focus:z-20 py-2 px-4 appearance-none;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' viewBox='0 0 16 16'%3E%3Cpath stroke='%23333' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M4 6l4 4 4-4'/%3E%3C/svg%3E")
-    center right 10px no-repeat;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' viewBox='0 0 16 16'%3E%3Cpath stroke='%23333' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M4 6l4 4 4-4'/%3E%3C/svg%3E") center right 10px no-repeat;
   background-size: 1rem;
   padding-right: 2.5rem;
 }
@@ -198,6 +200,7 @@ select {
   0% {
     background-position: 200% 0;
   }
+
   100% {
     background-position: -200% 0;
   }
@@ -225,7 +228,7 @@ input[type='radio'] {
   border-radius: 50%;
 }
 
-input[type='checkbox']:after{
+input[type='checkbox']:after {
   content: '';
   display: block;
   opacity: 0;
@@ -256,13 +259,13 @@ input[type='radio']:after {
 }
 
 input[type='checkbox']:checked:after,
-input[type='checkbox'] + label,
-input[type='radio'] + label {
+input[type='checkbox']+label,
+input[type='radio']+label {
   @apply cursor-pointer text-gray-600 hover:text-primary;
 }
 
-input[type='checkbox']:checked + label,
-input[type='radio']:checked + label {
+input[type='checkbox']:checked+label,
+input[type='radio']:checked+label {
   @apply text-gray-800 hover:text-primary-dark;
 }
 

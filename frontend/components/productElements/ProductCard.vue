@@ -1,34 +1,28 @@
 <template>
-  <div class="relative group">
-    <NuxtLink v-if="node.slug" :to="`/product/${decodeURIComponent(node.slug)}`" :title="node.name">
-      <SaleBadge v-if="node?.status" :node class="absolute top-2 right-2" />
-      <img
-          :width="imgWidth"
-          :height="imgHeight"
-          :src="node.src || '/images/placeholder.jpg'"
-          :alt="node.image?.altText || node.name || 'Product image'"
-          :title="node.name"
-          :loading="index <= 3 ? 'eager' : 'lazy'"
-          :sizes="`sm:${imgWidth / 2}px md:${imgWidth}px`"
-          class="rounded-lg object-top object-cover w-full aspect-9/8 md:h-[280px] h-[150px]"
-      />
-    </NuxtLink>
-    <div class="p-2">
-<!--      <StarRating v-if="storeSettings.showReviews" :rating="3" :count="3" />-->
-      <NuxtLink v-if="node.slug" :to="`/product/${decodeURIComponent(node.slug)}`" :title="node.name">
-        <h2 class="mb-2 font-light leading-tight group-hover:text-primary">{{ node.translations[locale].title }}</h2>
-      </NuxtLink>
-      <ProductPrice class="text-sm" :regular-price="node.price" />
-    </div>
+  <div>
+    <a href="javascript:;"
+      class="relative bg-cover group rounded-3xl !h-[280px] bg-center overflow-hidden mx-auto sm:ml-0 xl:mx-auto cursor-pointer">
+      <img class="rounded-2xl object-cover h-full w-full" :src="addBackendToImageUrl(node.image_url) || '/images/placeholder.jpg'"
+        :alt="node.image_url">
+      <div
+        class="absolute z-10 bottom-3 left-0 mx-3 p-3 bg-white w-[calc(100%-24px)] rounded-xl shadow-sm shadow-transparent transition-all duration-500 group-hover:shadow-indigo-200 group-hover:bg-indigo-50">
+        <div class="flex items-center justify-between mb-2">
+          <h6 class="font-semibold text-base leading-7 text-black ">{{ node.name }}</h6>
+          <h6 class="font-semibold text-base leading-7 text-indigo-600 text-right">{{ node.price }}</h6>
+        </div>
+        <p class="text-xs leading-5 text-gray-500 truncate w-full">{{ node.description }}</p>
+      </div>
+    </a>
   </div>
+
 </template>
 
 <script setup lang="ts">
-const {locale} = useI18n()
+const { addBackendToImageUrl } = useHelpers()
+const { locale } = useI18n()
 import SaleBadge from "~/components/productElements/SaleBadge.vue";
 import StarRating from "~/components/productElements/StarRating.vue";
 import ProductPrice from "~/components/productElements/ProductPrice.vue";
-
 const route = useRoute();
 const { storeSettings } = useAppConfig();
 
@@ -42,6 +36,6 @@ const imgHeight = Math.round(imgWidth * 1.125);
 
 const filterQuery = computed(() => route.query.filter as string);
 const paColor = computed(() =>
-    filterQuery.value?.match(/pa_color\[(.*?)\]/)?.[1]?.split(",") || []
+  filterQuery.value?.match(/pa_color\[(.*?)\]/)?.[1]?.split(",") || []
 );
 </script>

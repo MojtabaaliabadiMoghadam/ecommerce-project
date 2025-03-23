@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require("path");
 const cors = require("cors");
 const dotenv = require("dotenv");
 const productRoutes = require("./routes/products");
@@ -15,6 +16,8 @@ app.use("/api/products", productRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/users", usersRoutes);
 app.use("/api/auth", authRoutes);
+
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 const PORT = 5000;
 app.listen(PORT, () => {
   console.log(`🚀 Server is running on port ${PORT}`);
